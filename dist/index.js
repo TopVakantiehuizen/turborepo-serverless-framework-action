@@ -12115,21 +12115,27 @@ try {
   console.log(`Apps directory is: ${appsDirectory}!`);
 
   // Here we loop through the monorepo and return the path to each app
-  const serverlessApps = [
-    'availability-api',
-    'booking-api',
-  ];
-  core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
+  // const serverlessApps = [
+  //   'availability-api',
+  //   'booking-api',
+  // ];
+  // core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
 
   core.info('\u001b[35mLooping through files in the monorepo');
   const findFiles = async () => {
-    const globber = await glob.create('**', { followSymbolicLinks: true })
+    const serverlessApps = [];
+    const patterns = [`${appsDirectory}/*/serverless.yml`, `${appsDirectory}/*/serverless.yaml`]
+    const globber = await glob.create(patterns.join('\n'))
     for await (const file of globber.globGenerator()) {
       console.log(file)
+      serverlessApps.push(file);
     }
+
+    return serverlessApps;
   }
-  findFiles().then(() => {
+  findFiles().then((serverlessApps) => {
     console.log('Done looping through files in the monorepo');
+    core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
   });
 
   // Get the JSON webhook payload for the event that triggered the workflow
