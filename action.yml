@@ -1,4 +1,4 @@
-name: 'Find Serverless Framework API`s inside a Turborepo (monorepo) repository'
+name: 'Find Serverless Framework APIs inside Turborepo (monorepo)'
 description: 'This action loops through all the apps and find the serverless.yml files inside them.'
 inputs:
   apps-directory:  # id of input

@@ -12111,7 +12111,7 @@ const glob = __nccwpck_require__(4708);
 
 try {
   // `apps-directory` input defined in action metadata file
-  const appsDirectory = core.getInput('apps-directory', { required: true });
+  const appsDirectory = core.getInput('apps-directory', {required: true});
   console.log(`Apps directory is: ${appsDirectory}!`);
 
   // Here we loop through the monorepo and return the path to each Serverless app
@@ -12123,7 +12123,12 @@ try {
     const patterns = [`${appsDirectory}/*/serverless.yml`, `${appsDirectory}/*/serverless.yaml`]
     const globber = await glob.create(patterns.join('\n'))
     for await (const file of globber.globGenerator()) {
-      serverlessApps.push(file.replace(runnerPath, ''));
+      serverlessApps.push(
+        file
+          .replace(runnerPath, '')
+          .replace('serverless.yaml', '')
+          .replace('serverless.yml', '')
+      );
     }
 
     return serverlessApps;
