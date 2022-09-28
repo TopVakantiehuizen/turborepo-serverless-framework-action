@@ -1,0 +1,13 @@
+name: 'Find Serverless Framework API`s inside a Turborepo (monorepo) repository'
+description: 'This action loops through all the apps and find the serverless.yml files inside them.'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node16'
+  main: 'index.js'
