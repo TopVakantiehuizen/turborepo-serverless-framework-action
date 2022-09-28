@@ -1,5 +1,9 @@
 name: 'Find Serverless Framework APIs inside Turborepo (monorepo)'
 description: 'This action loops through all the apps and find the serverless.yml files inside them.'
+author: 'Aaron van den Berg'
+branding:
+  icon: search
+  color: red
 inputs:
   apps-directory:  # id of input
     description: 'The directory where the apps are located (in Turborepo it is the directory "apps").'
