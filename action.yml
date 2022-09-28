@@ -6,8 +6,8 @@ inputs:
     required: true
     default: 'apps'
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  apps-directory: # id of output
+    description: 'The directory of the apps'
 runs:
   using: 'node16'
   main: 'dist/index.js'
