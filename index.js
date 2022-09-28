@@ -4,9 +4,14 @@ const github = require('@actions/github');
 try {
   // `apps-directory` input defined in action metadata file
   const appsDirectory = core.getInput('apps-directory');
-  console.log(`The directory where the apps are located: ${appsDirectory}!`);
+  console.log(`Apps directory is: ${appsDirectory}!`);
 
-  core.setOutput("apps-directory", appsDirectory);
+  // Here we loop through the monorepo and return the path to each app
+  const serverlessApps = [
+    'availability-api',
+    'booking-api',
+  ];
+  core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
 
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context, undefined, 2)

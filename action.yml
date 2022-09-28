@@ -6,8 +6,14 @@ inputs:
     required: true
     default: 'apps'
 outputs:
-  apps-directory: # id of output
-    description: 'The directory of the apps'
+  serverless-apps: # id of output
+    description: 'List of serverless apps found.'
 runs:
   using: 'node16'
   main: 'dist/index.js'
+
+
+#  apps-directory:  # id of input
+#    description: 'The directory where the apps are located (in Turborepo it is the directory "apps").'
+#    required: true
+#    default: 'apps'
