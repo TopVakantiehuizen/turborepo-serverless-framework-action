@@ -7,8 +7,9 @@ try {
   const appsDirectory = core.getInput('apps-directory', {required: true});
   console.log(`Apps directory is: ${appsDirectory}!`);
 
-  core.setOutput("serverless-apps", JSON.stringify(["apps/availability-api"]));
-/*
+  /** Uncomment below to return a mocked list of directories **/
+  // core.setOutput("serverless-apps", JSON.stringify(["apps/availability-api"]));
+
   // Here we loop through the monorepo and return the path to each Serverless app
   const findFiles = async () => {
     const serverlessApps = [];
@@ -30,13 +31,12 @@ try {
   }
   findFiles().then((serverlessApps) => {
     console.log('Serverless Apps found:', JSON.stringify(serverlessApps, undefined, 2));
-    core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
+    core.setOutput("serverless-apps", JSON.stringify(serverlessApps));
   });
 
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload.repository.name, undefined, 2)
   console.log(`The event payload: ${payload}`);
-*/
 } catch (error) {
   core.setFailed(error.message);
 }
