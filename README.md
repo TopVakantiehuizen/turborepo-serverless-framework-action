@@ -33,3 +33,8 @@ jobs:
       - name: Get Serverless Apps directories
         run: echo "Serverless app directories ${{ steps.scan.outputs.serverless-apps }}"
 ```
+
+
+### Development
+
+Before you create a new release, run the command `ncc build index.js --license licenses.txt` to compile the action.
