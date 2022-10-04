@@ -7,7 +7,7 @@ try {
   const appsDirectory = core.getInput('apps-directory', {required: true});
   console.log(`Apps directory is: ${appsDirectory}!`);
 
-  core.setOutput("serverless-apps", JSON.stringify(["/apps/availability-api/"]));
+  core.setOutput("serverless-apps", JSON.stringify(["apps/availability-api"]));
 /*
   // Here we loop through the monorepo and return the path to each Serverless app
   const findFiles = async () => {
