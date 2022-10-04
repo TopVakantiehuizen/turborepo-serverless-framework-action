@@ -7,13 +7,15 @@ try {
   const appsDirectory = core.getInput('apps-directory', {required: true});
   console.log(`Apps directory is: ${appsDirectory}!`);
 
+  core.setOutput("serverless-apps", JSON.stringify(["/apps/availability-api/"], undefined, 2));
+/*
   // Here we loop through the monorepo and return the path to each Serverless app
   const findFiles = async () => {
     const serverlessApps = [];
     const repo = github.context.payload.repository.name;
     const runnerPath = `/home/runner/work/${repo}/${repo}`;
 
-    const patterns = [`${appsDirectory}/*/serverless.yml`, `${appsDirectory}/*/serverless.yaml`]
+    const patterns = [`${appsDirectory}/!*!/serverless.yml`, `${appsDirectory}/!*!/serverless.yaml`]
     const globber = await glob.create(patterns.join('\n'))
     for await (const file of globber.globGenerator()) {
       serverlessApps.push(
@@ -34,6 +36,7 @@ try {
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload.repository.name, undefined, 2)
   console.log(`The event payload: ${payload}`);
+*/
 } catch (error) {
   core.setFailed(error.message);
 }
