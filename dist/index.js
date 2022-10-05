@@ -12125,20 +12125,26 @@ try {
   const findFiles = async () => {
     const serverlessApps = [];
     const repo = github.context.payload.repository.name;
-    const runnerPath = `/home/runner/work/${repo}/${repo}`;
+    const runnerPath = `/home/runner/work/${repo}/${repo}/`;
 
     const patterns = [`${appsDirectory}/*/serverless.yml`, `${appsDirectory}/*/serverless.yaml`]
     const globber = await glob.create(patterns.join('\n'))
     for await (const file of globber.globGenerator()) {
-      console.log(file.replace(runnerPath, ''));
-      serverlessApps.push(file.replace(runnerPath, ''));
+      console.log(file);
+      const app = file
+        .replace(runnerPath, '')
+        .replace('serverless.yml', '')
+        .replace('serverless.yaml', '');
+      console.log(app);
+      serverlessApps.push(app);
     }
 
     return serverlessApps;
   }
   findFiles().then((serverlessApps) => {
     console.log('Done looping through files in the monorepo');
-    core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
+    console.log(JSON.stringify(serverlessApps, undefined, 2));
+    core.setOutput("serverless-apps", JSON.stringify(JSON.stringify(serverlessApps)));
   });
 
   // Get the JSON webhook payload for the event that triggered the workflow
