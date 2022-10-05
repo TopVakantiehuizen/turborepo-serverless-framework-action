@@ -12112,14 +12112,7 @@ const glob = __nccwpck_require__(4708);
 try {
   // `apps-directory` input defined in action metadata file
   const appsDirectory = core.getInput('apps-directory', { required: true });
-  console.log(`Apps directory is: ${appsDirectory}!`);
-
-  // Here we loop through the monorepo and return the path to each app
-  // const serverlessApps = [
-  //   'availability-api',
-  //   'booking-api',
-  // ];
-  // core.setOutput("serverless-apps", JSON.stringify(serverlessApps, undefined, 2));
+  console.log(`Given applications directory is: "${appsDirectory}".`);
 
   core.info('\u001b[35mLooping through files in the monorepo');
   const findFiles = async () => {
@@ -12130,26 +12123,20 @@ try {
     const patterns = [`${appsDirectory}/*/serverless.yml`, `${appsDirectory}/*/serverless.yaml`]
     const globber = await glob.create(patterns.join('\n'))
     for await (const file of globber.globGenerator()) {
-      console.log(file);
       const app = file
         .replace(runnerPath, '')
         .replace('serverless.yml', '')
         .replace('serverless.yaml', '');
-      console.log(app);
       serverlessApps.push(app);
     }
 
     return serverlessApps;
   }
   findFiles().then((serverlessApps) => {
-    console.log('Done looping through files in the monorepo');
+    console.log('Done looping through files in the monorepo, found the following serverless apps:');
     console.log(JSON.stringify(serverlessApps, undefined, 2));
     core.setOutput("serverless-apps", JSON.stringify(JSON.stringify(serverlessApps)));
   });
-
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload.repository.name, undefined, 2)
-  console.log(`The event payload: ${payload}`);
 } catch (error) {
   core.setFailed(error.message);
 }
