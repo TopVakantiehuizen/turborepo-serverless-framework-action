@@ -31,7 +31,7 @@ try {
   }
   findFiles().then((serverlessApps) => {
     console.log('Serverless Apps found:', JSON.stringify(serverlessApps, undefined, 2));
-    core.setOutput("serverless-apps", JSON.stringify(serverlessApps));
+    core.setOutput("serverless-apps", serverlessApps.toString());
   });
 
   // Get the JSON webhook payload for the event that triggered the workflow
